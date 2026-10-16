@@ -12,6 +12,10 @@ import type { GamePhase, PlayerStatus } from "@blacksite/shared";
 const SERVER_URL =
   import.meta.env.VITE_WS_URL || `ws://${window.location.hostname}:2567`;
 
+const HTTP_SERVER_URL =
+  import.meta.env.VITE_SERVER_URL ||
+  `${window.location.protocol}//${window.location.hostname}:2567`;
+
 let client: Client | null = null;
 let room: Room | null = null;
 let inputSeq = 0;
@@ -44,7 +48,9 @@ export async function joinRoomByCode(
   inviteCode: string,
   playerName: string,
 ): Promise<Room> {
-  const response = await fetch(`/api/room/${inviteCode.toUpperCase()}`);
+  const response = await fetch(
+    `${HTTP_SERVER_URL}/api/room/${inviteCode.toUpperCase()}`,
+  );
   if (!response.ok) {
     const data = await response.json();
     throw new Error(data.error || "Failed to find room");

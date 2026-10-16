@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: blacksite-server
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build -w packages/shared && npm run build -w apps/server
+    startCommand: node apps/server/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: MAX_PLAYERS_PER_ROOM
+        value: "8"
+      - key: MIN_PLAYERS_TO_START
+        value: "1"
