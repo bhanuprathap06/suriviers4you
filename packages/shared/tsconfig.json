@@ -4,8 +4,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
-    "module": "commonjs",
-    "moduleResolution": "node"
+    "declaration": true,
+    "declarationMap": true,
+    "module": "node16",
+    "moduleResolution": "node16"
   },
   "include": ["src/**/*"]
 }
